@@ -2,13 +2,16 @@ FROM jenkins:2.7.1
 
 USER root
 
+RUN apt-get update \
+    && apt-get install -y apt-transport-https \
+    && rm -rf /var/lib/apt/lists/*
+    
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 RUN echo 'deb https://apt.dockerproject.org/repo ubuntu-trusty main' >> /etc/apt/sources.list.d/docker.list
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
       apparmor \
-      apt-transport-https \
       ca-certificates \
       docker-engine \
       git-core \
